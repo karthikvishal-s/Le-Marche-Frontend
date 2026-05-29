@@ -1,13 +1,13 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
+import { ApplicationConfig } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http'; // ADD THIS IMPORT
+import { provideClientHydration } from '@angular/platform-browser'; // Restores SSR Context
+import { provideHttpClient, withFetch } from '@angular/common/http'; // Handles HTTP in SSR
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),provideHttpClient(), // ADD THIS LINE,
-    provideRouter(routes), provideClientHydration(withEventReplay())
+    provideRouter(routes),
+    provideClientHydration(), // <-- This is the missing piece!
+    provideHttpClient(withFetch()) // <-- Required for SSR HTTP calls
   ]
 };
-
