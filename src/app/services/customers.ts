@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 export interface Customer{
-  custId: Number;
+  custId: number;
   custName: String;
   custStatus: String;
 
@@ -28,7 +28,7 @@ export class CustomerService {
      return this.http.post<Customer>(this.apiurl,customer)
   }
 
-  deleteCustomer(custId:Number):Observable<void>{
+  deleteCustomer(custId:number):Observable<void>{
     return this.http.delete<void>(`${this.apiurl}/${custId}`)
   }
 
