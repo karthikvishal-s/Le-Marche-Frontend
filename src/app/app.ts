@@ -115,12 +115,12 @@ export class AppComponent implements OnInit {
   }
 
   submitCustomer(): void{
-    if(!this.newCustomer.custId || this.newCustomer.custName) return;
+    if(!this.newCustomer.custStatus || this.newCustomer.custName) return;
 
     this.customerService.addCustomer(this.newCustomer).subscribe(()=>{
       this.loadCustomers();
 
-      this.newCustomer= { custId:0,custName:" ",custStatus:" "};
+      this.newCustomer= { custId:0,custName:' ',custStatus:' '};
     })
       
   }
