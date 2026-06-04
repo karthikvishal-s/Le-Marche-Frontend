@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 
 export interface Customer{
-  custID: Number;
+  custId: Number;
   custName: String;
   custStatus: String;
 
@@ -14,7 +14,7 @@ export interface Customer{
 @Injectable({
   providedIn: 'root',
 })
-export class Customers {
+export class CustomerService {
 
   private apiurl="http://localhost:8080/customers";
 

@@ -80,11 +80,14 @@ export class AppComponent implements OnInit {
   
   // This object acts like your React state for the form inputs
   newProduct: Product = { prodId: 0 ,prodName: '', price: null as any };
+  newCustomer: Customer = { custId:0,custName:" ",custStatus:" "};
 
   private productService = inject(ProductService);
+  private customerService = inject(CustomerService);
 
   ngOnInit(): void {
     this.loadProducts();
+    this.loadCustomers();
   }
 
   // Refactored into a reusable method so we can call it after adding/deleting
