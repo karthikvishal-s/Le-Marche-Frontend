@@ -36,15 +36,18 @@ import { Customer,CustomerService } from './services/customers';
       <ng-template #noData>
         <p>Store inventory is currently empty...</p>
       </ng-template>
-    </div>
-  <div class ="store-container">
-    <h1>Customer Details</h1>
+
+
+
+
+
+      <h1>Customer Details</h1>
       
       <div class="add-form">
         <h3>Add New Customer</h3>
         <input type="number" [(ngModel)]="newCustomer.custId" placeholder="Customer ID" />
-        <input type="text" [(ngModel)]="newCustomer.custName" placeholder="Customer Name" />
-        <input type="text" [(ngModel)]="newCustomer.custStatus" placeholder="Status" />
+        <input type="text" [(ngModel)]="newCustomer.custName" placeholder="Statu" />
+        <input type="text" [(ngModel)]="newCustomer.custStatus" placeholder="Statu" />
         <button (click)="submitCustomer()">Add Customer</button>
       </div>
 
@@ -53,7 +56,7 @@ import { Customer,CustomerService } from './services/customers';
       <ul *ngIf="customers.length > 0; else noData">
         <li *ngFor="let customer of customers">
           <div class="item-info">
-        <strong> {{customer.custId}}.   </strong><strong>{{ customer.custName }}</strong> - ₹{{ customer.custStatus }}
+        <strong> {{customer.custId}}.   </strong><strong>{{ customer.custName }}</strong> - {{ customer.custStatus }}
           </div>
           <button class="delete-btn" (click)="removeCustomer(customer.custId)">Delete</button>
         </li>
@@ -63,6 +66,7 @@ import { Customer,CustomerService } from './services/customers';
         <p>Store inventory is currently empty...</p>
       </ng-template>
     </div>
+  
 </div>
 
   `,
@@ -80,14 +84,15 @@ export class AppComponent implements OnInit {
   
   // This object acts like your React state for the form inputs
   newProduct: Product = { prodId: 0 ,prodName: '', price: null as any };
-  newCustomer: Customer = { custId:0,custName:" ",custStatus:" "};
+  newCustomer: Customer = { custId:0,custName:' ',custStatus:null as any};
 
   private productService = inject(ProductService);
   private customerService = inject(CustomerService);
 
   ngOnInit(): void {
-    this.loadProducts();
     this.loadCustomers();
+    this.loadProducts();
+    
   }
 
   // Refactored into a reusable method so we can call it after adding/deleting
@@ -115,14 +120,16 @@ export class AppComponent implements OnInit {
   }
 
   submitCustomer(): void{
-    if(!this.newCustomer.custStatus || this.newCustomer.custName) return;
+    if(!this.newCustomer.custId || !this.newCustomer.custName) return;
+    {console.log("Submit Initaited")}
 
     this.customerService.addCustomer(this.newCustomer).subscribe(()=>{
       this.loadCustomers();
+      console.log("Added Customer...");
 
       this.newCustomer= { custId:0,custName:' ',custStatus:' '};
     })
-      
+   
   }
 
   removeProduct(id: number): void {
