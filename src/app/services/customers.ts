@@ -20,9 +20,16 @@ export class Customers {
 
   private http = inject(HttpClient);
 
-  public getCustomers():Observable<Customer[]>{
+  getCustomers():Observable<Customer[]>{
       return this.http.get <Customer[]>(this.apiurl);
   }
 
+   addCustomer(customer: Customer):Observable<Customer>{
+     return this.http.post<Customer>(this.apiurl,customer)
+  }
+
+  deleteCustomer(custId:Number):Observable<void>{
+    return this.http.delete<void>(`${this.apiurl}/${custId}`)
+  }
 
 }
