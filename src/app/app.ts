@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // CRITICAL: This is Angular's form state manager
 import { ProductService, Product } from './services/inventory'; // Adjust path if needed
@@ -49,7 +49,7 @@ export class AppComponent implements OnInit {
   // This object acts like your React state for the form inputs
   newProduct: Product = { prodId: 0 ,prodName: '', price: null as any };
 
-  constructor(private productService: ProductService) {}
+  private productService = inject(ProductService);
 
   ngOnInit(): void {
     this.loadProducts();
