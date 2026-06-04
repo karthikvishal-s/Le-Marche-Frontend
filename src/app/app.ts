@@ -7,7 +7,8 @@ import { ProductService, Product } from './services/inventory'; // Adjust path i
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, FormsModule], // Inject FormsModule here
-  template: `
+  template: `<div>
+
     <div class="store-container">
       <h1>Fidelity Departmental Store</h1>
       
@@ -34,6 +35,34 @@ import { ProductService, Product } from './services/inventory'; // Adjust path i
         <p>Store inventory is currently empty...</p>
       </ng-template>
     </div>
+  <div class ="store-container">
+    <h1>Customer Details</h1>
+      
+      <div class="add-form">
+        <h3>Add New Inventory</h3>
+        <input type="number" [(ngModel)]="newProduct.prodId" placeholder="Product ID" />
+        <input type="text" [(ngModel)]="newProduct.prodName" placeholder="Product Name" />
+        <input type="number" [(ngModel)]="newProduct.price" placeholder="Price (₹)" />
+        <button (click)="submitProduct()">Add Item</button>
+      </div>
+
+      <hr>
+
+      <ul *ngIf="products.length > 0; else noData">
+        <li *ngFor="let product of products">
+          <div class="item-info">
+        <strong> {{product.prodId}}.   </strong><strong>{{ product.prodName }}</strong> - ₹{{ product.price }}
+          </div>
+          <button class="delete-btn" (click)="removeProduct(product.prodId!)">Delete</button>
+        </li>
+      </ul>
+      
+      <ng-template #noData>
+        <p>Store inventory is currently empty...</p>
+      </ng-template>
+    </div>
+</div>
+
   `,
   styles: [`
     .store-container { font-family: Arial, sans-serif; padding: 20px; max-width: 600px; margin: auto; }
