@@ -51,11 +51,11 @@ import { Customer,CustomerService } from './services/customers';
       <hr>
 
       <ul *ngIf="customers.length > 0; else noData">
-        <li *ngFor="let product of products">
+        <li *ngFor="let customer of customers">
           <div class="item-info">
-        <strong> {{product.prodId}}.   </strong><strong>{{ product.prodName }}</strong> - ₹{{ product.price }}
+        <strong> {{customer.custId}}.   </strong><strong>{{ customer.custName }}</strong> - ₹{{ customer.custStatus }}
           </div>
-          <button class="delete-btn" (click)="removeProduct(product.prodId!)">Delete</button>
+          <button class="delete-btn" (click)="removeCustomer(customer.custId)">Delete</button>
         </li>
       </ul>
       
@@ -76,7 +76,7 @@ import { Customer,CustomerService } from './services/customers';
 })
 export class AppComponent implements OnInit {
   products: Product[] = [];
-  customer: Customer[] = [];
+  customers: Customer[] = [];
   
   // This object acts like your React state for the form inputs
   newProduct: Product = { prodId: 0 ,prodName: '', price: null as any };
@@ -97,6 +97,12 @@ export class AppComponent implements OnInit {
     });
   }
 
+  loadCustomers():void{
+    this.customerService.getCustomers().subscribe((data)=>{
+      this.customers = data;
+    })
+  }
+
   submitProduct(): void {
     if (!this.newProduct.prodName || !this.newProduct.price) return; // Basic validation
 
@@ -108,10 +114,28 @@ export class AppComponent implements OnInit {
     });
   }
 
+  submitCustomer(): void{
+    if(!this.newCustomer.custId || this.newCustomer.custName) return;
+
+    this.customerService.addCustomer(this.newCustomer).subscribe(()=>{
+      this.loadCustomers();
+
+      this.newCustomer= { custId:0,custName:" ",custStatus:" "};
+    })
+      
+  }
+
   removeProduct(id: number): void {
     this.productService.deleteProduct(id).subscribe(() => {
       // Refresh the list so the deleted item disappears
       this.loadProducts();
     });
+  }
+
+  removeCustomer(id:Number):void{
+    this.customerService.deleteCustomer(id).subscribe(()=>{
+      this.loadCustomers();
+    })
+
   }
 }
