@@ -2,6 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // CRITICAL: This is Angular's form state manager
 import { ProductService, Product } from './services/inventory'; // Adjust path if needed
+import { Customer,CustomerService } from './services/customers';
 
 
 @Component({
@@ -49,7 +50,7 @@ import { ProductService, Product } from './services/inventory'; // Adjust path i
 
       <hr>
 
-      <ul *ngIf="products.length > 0; else noData">
+      <ul *ngIf="customers.length > 0; else noData">
         <li *ngFor="let product of products">
           <div class="item-info">
         <strong> {{product.prodId}}.   </strong><strong>{{ product.prodName }}</strong> - ₹{{ product.price }}
@@ -75,6 +76,7 @@ import { ProductService, Product } from './services/inventory'; // Adjust path i
 })
 export class AppComponent implements OnInit {
   products: Product[] = [];
+  customer: Customer[] = [];
   
   // This object acts like your React state for the form inputs
   newProduct: Product = { prodId: 0 ,prodName: '', price: null as any };
