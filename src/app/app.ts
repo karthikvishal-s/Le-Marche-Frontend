@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms'; // CRITICAL: This is Angular's form state manager
 import { ProductService, Product } from './services/inventory'; // Adjust path if needed
 
+
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -39,11 +40,11 @@ import { ProductService, Product } from './services/inventory'; // Adjust path i
     <h1>Customer Details</h1>
       
       <div class="add-form">
-        <h3>Add New Inventory</h3>
-        <input type="number" [(ngModel)]="newProduct.prodId" placeholder="Product ID" />
-        <input type="text" [(ngModel)]="newProduct.prodName" placeholder="Product Name" />
-        <input type="number" [(ngModel)]="newProduct.price" placeholder="Price (₹)" />
-        <button (click)="submitProduct()">Add Item</button>
+        <h3>Add New Customer</h3>
+        <input type="number" [(ngModel)]="newCustomer.custId" placeholder="Customer ID" />
+        <input type="text" [(ngModel)]="newCustomer.custName" placeholder="Customer Name" />
+        <input type="text" [(ngModel)]="newCustomer.custStatus" placeholder="Status" />
+        <button (click)="submitCustomer()">Add Customer</button>
       </div>
 
       <hr>
